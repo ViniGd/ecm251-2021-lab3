@@ -2,9 +2,10 @@
 Este repositório guarda os trabalhos e projetos da disciplina.
 
 # Desenvolvedor(a):
-## Fernando Padilha Farah
+- Fernando Padilha Farah
 
 # Linguagens e Frameworks:
 - Java
 - Python
 - C
+- Dart
