@@ -10,7 +10,7 @@ public class Conta {
     private double saldo;
     private Usuario usuario;
 
-    static String[] idContasRegistradas;
+    static String[] idContasRegistradas = {};
 
     public Conta (Usuario usuario, double saldoInicial) {
         this.idConta = criarIdContaNovo();
@@ -27,7 +27,7 @@ public class Conta {
     }
 
     public void perderSaldo(double valorARetirar) {
-        this.saldo += valorARetirar;
+        this.saldo -= valorARetirar;
     }
 
     public boolean checarInfosParaReceber(String idConta, String nome) {
@@ -44,12 +44,16 @@ public class Conta {
     }
 
     private static boolean acharStringEmLista(String[] lista, String itemAAchar) {
-        for (String item : lista) {
-            if (itemAAchar.equals(item)) {
-                return true;
+        if (lista.length > 0) {
+            for (String item : lista) {
+                if (itemAAchar.equals(item)) {
+                    return true;
+                }
             }
+            return false;
+        } else {
+            return false;
         }
-        return false;
     }
 
     private static String criarIdContaNovo () {
