@@ -4,7 +4,9 @@ import conta.Conta;
 import transação.Transacao;
 import usuario.Usuario;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -15,7 +17,7 @@ public class Main {
         int escolhaMenuInicial;
         int escolhaMenuUsuario;
         int escolhaMenuTrocaDeDados;
-        Conta[] contas = {};
+        List<Conta> contas = new ArrayList<Conta>();
         String[] dadosTemps;
         Conta contaTemp;
         Conta contaAReceberTemp;
@@ -27,6 +29,7 @@ public class Main {
         do {
             menuInicial();
             escolhaMenuInicial = userInput.nextInt();
+            userInput.nextLine();
 
             switch (escolhaMenuInicial) {
                 case 1 -> {
@@ -39,36 +42,39 @@ public class Main {
                         do {
                             menuUsuario(contaTemp);
                             escolhaMenuUsuario = userInput.nextInt();
+                            userInput.nextLine();
 
                             switch (escolhaMenuUsuario) {
                                 case 1:
                                     printarDadosConta(contaTemp);
-                                    System.out.print(" Precione enter para voltar: ");
+                                    System.out.print("Precione enter para voltar:");
                                     userInput.nextLine();
                                     break;
                                 case 2:
                                     menuDeTransferencia(contas, contaTemp, userInput);
-                                    System.out.println("Qual o ID da Conta para Transferir?\n");
-                                    idContaTemp = userInput.nextLine();
+                                    if (contas.size() > 1) {
+                                        System.out.println("Qual o ID da Conta para Transferir?\n");
+                                        idContaTemp = userInput.nextLine();
 
-                                    contaAReceberTemp = acharContaPorId(contas, idContaTemp);
+                                        contaAReceberTemp = acharContaPorId(contas, idContaTemp);
 
-                                    if (contaAReceberTemp != null) {
-                                        System.out.println("Qual o Valor da Transferencia?\n");
-                                        valorAReceberTemp = userInput.nextDouble();
-                                        Transacao.transferencia(Transacao.gerarQRCode(contaAReceberTemp, valorAReceberTemp), contaTemp, contaAReceberTemp);
-                                    } else {
-                                        System.out.println("Id Invalido!!!\n");
-                                        System.out.print(" Precione enter para voltar: \n");
-                                        userInput.nextLine();
+                                        if (contaAReceberTemp != null) {
+                                            System.out.println("Qual o Valor da Transferencia?\n");
+                                            valorAReceberTemp = userInput.nextDouble();
+                                            Transacao.transferencia(Transacao.gerarQRCode(contaAReceberTemp, valorAReceberTemp), contaTemp, contaAReceberTemp);
+                                        } else {
+                                            System.out.println("Id Invalido!!!\n");
+                                            System.out.print("Precione enter para voltar:");
+                                            userInput.nextLine();
+                                        }
                                     }
-
                                     break;
 
                                 case 3:
                                     do {
                                         menuTrocarDados();
                                         escolhaMenuTrocaDeDados = userInput.nextInt();
+                                        userInput.nextLine();
 
                                         switch (escolhaMenuTrocaDeDados) {
                                             case 1:
@@ -78,8 +84,9 @@ public class Main {
                                                 contaTemp.setEmailUsuario(email, senha, dadoAMudarTemp);
 
                                                 System.out.println("Dado Atualizado");
-                                                System.out.print(" Precione enter para voltar: ");
+                                                System.out.print("Precione enter para voltar:");
                                                 userInput.nextLine();
+                                                break;
 
                                             case 2:
                                                 System.out.println("Qual o Novo Senha?");
@@ -88,8 +95,9 @@ public class Main {
                                                 contaTemp.setSenhaUsuario(email, senha, dadoAMudarTemp);
 
                                                 System.out.println("Dado Atualizado");
-                                                System.out.print(" Precione enter para voltar: ");
+                                                System.out.print("Precione enter para voltar:");
                                                 userInput.nextLine();
+                                                break;
 
                                             case 3:
                                                 System.out.println("Qual o Novo Nome?");
@@ -98,15 +106,16 @@ public class Main {
                                                 contaTemp.setNomeUsuario(email, senha, dadoAMudarTemp);
 
                                                 System.out.println("Dado Atualizado");
-                                                System.out.print(" Precione enter para voltar: ");
+                                                System.out.print("Precione enter para voltar:");
                                                 userInput.nextLine();
+                                                break;
 
                                             case 4:
                                                 System.out.println("Voltando Você!!!");
                                                 break;
                                             default:
                                                 System.out.println("Opção Inválida!!!");
-                                                System.out.print(" Precione enter para voltar: ");
+                                                System.out.print("Precione enter para voltar:");
                                                 userInput.nextLine();
                                         }
                                     } while (escolhaMenuTrocaDeDados != 4);
@@ -117,7 +126,7 @@ public class Main {
                                     break;
                                 default:
                                     System.out.println("Opção Inválida!!!");
-                                    System.out.print(" Precione enter para voltar: ");
+                                    System.out.print("Precione enter para voltar:");
                                     userInput.nextLine();
                             }
                         } while (escolhaMenuUsuario != 4);
@@ -129,27 +138,32 @@ public class Main {
                     senha = dadosTemps[1];
                     nome = dadosTemps[2];
                     saldoInicial = Double.parseDouble(dadosTemps[3]);
-                    adicionarContaAoSistema(contas, new Conta(new Usuario(nome, senha, email), saldoInicial));
+                    contas.add(new Conta(new Usuario(nome, senha, email), saldoInicial));
                     System.out.println("Conta Adicionada!Faça Login Para Acessar Sua Conta!!!");
-                    System.out.print(" Precione enter para voltar: ");
+                    System.out.print("Precione enter para voltar:");
                     userInput.nextLine();
+                    break;
                 }
                 case 3 -> {
                     menuAdmin(contas);
-                    System.out.print(" Precione enter para voltar: ");
+                    System.out.print("Precione enter para voltar:");
                     userInput.nextLine();
+                    break;
                 }
-                case 4 -> System.out.println("Volte sempre!!!");
+                case 4 -> {
+                    System.out.println("Volte sempre!!!");
+                    break;
+                }
                 default -> {
                     System.out.println("Opção Inválida!!!");
-                    System.out.print(" Precione enter para voltar: ");
+                    System.out.print("Precione enter para voltar:");
                     userInput.nextLine();
                 }
             }
         } while(escolhaMenuInicial!=4);
     }
 
-    private static Conta acharContaPorCredenciais(Conta[] contas,String email, String senha) {
+    private static Conta acharContaPorCredenciais(List<Conta> contas,String email, String senha) {
         for (Conta conta : contas) {
             if (conta.checarDadosDeUsuario(email,senha)) {
                 return conta;
@@ -158,7 +172,7 @@ public class Main {
         return null;
     }
 
-    private static Conta acharContaPorId(Conta[] contas,String idConta) {
+    private static Conta acharContaPorId(List<Conta> contas,String idConta) {
         for (Conta conta : contas) {
             if (conta.getIdConta().equals(idConta)) {
                 return conta;
@@ -214,13 +228,13 @@ public class Main {
         );
     }
 
-    private static void menuDeTransferencia(Conta[] contas,Conta contaAPesquisar,Scanner userInput) {
+    private static void menuDeTransferencia(List<Conta> contas,Conta contaAPesquisar,Scanner userInput) {
         System.out.println(
                 "============\n" +
                 "Nome:\tID:\n"
         );
 
-        if (contas.length > 1) {
+        if (contas.size() > 1) {
             for (Conta conta : contas) {
                 if (!conta.getIdConta().equals(contaAPesquisar.getIdConta())) {
                     System.out.println(conta.getNomeUsuario() + "\t" + conta.getIdConta());
@@ -228,7 +242,7 @@ public class Main {
             }
         } else {
             System.out.println("Não Há Outras Contas Para Transferir!!!\n");
-            System.out.print(" Precione enter para voltar: ");
+            System.out.print("Precione enter para voltar:");
             userInput.nextLine();
         }
     }
@@ -263,23 +277,19 @@ public class Main {
                 "Saldo Inicial: "
         );
         String saldo = String.valueOf(userInput.nextDouble());
+        userInput.nextLine();
 
         return new String[]{email, senha, nome, saldo};
     }
 
-    private static void adicionarContaAoSistema(Conta[] contas, Conta contaNova) {
-        contas = Arrays.copyOf(contas, contas.length+1);
-        contas[contas.length-1] = contaNova;
-    }
-
-    private static void menuAdmin(Conta[] contas) {
+    private static void menuAdmin(List<Conta> contas) {
         System.out.println(
                 "============\n" +
                 "Dados dos Usuarios:\n" +
                 "Nome:\tID:\tSaldo:\tEmail:"
         );
 
-        if(contas.length > 0) {
+        if(contas.size() > 0) {
             for(Conta conta : contas) {
                 System.out.println(conta.getNomeUsuario() + "\t" + conta.getIdConta() + "\t" + conta.getSaldo() + "\t" + conta.getEmailUsuario());
             }

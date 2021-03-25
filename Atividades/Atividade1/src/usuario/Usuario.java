@@ -12,9 +12,10 @@ public class Usuario {
     }
 
     public boolean checarCredenciais(String email, String senha) {
-        if (this.email == email && this.senha == senha) {
+        if (this.email.equals(email) && this.senha.equals(senha)) {
             return true;
         } else {
+            System.out.println(UsuarioConts.credenciaisInvalidas);
             return false;
         }
     }
@@ -26,24 +27,18 @@ public class Usuario {
     public void setNome(String nome, String email, String senha) {
         if (checarCredenciais(email,senha)) {
             this.nome = nome;
-        } else {
-            System.out.println(UsuarioConts.credenciaisInvalidas);
         }
     }
 
     public void setSenha(String email, String senha, String novaSenha) {
         if (checarCredenciais(email,senha)) {
             this.senha = novaSenha;
-        } else {
-            System.out.println(UsuarioConts.credenciaisInvalidas);
         }
     }
 
     public void setEmail(String email, String senha, String novoEmail) {
         if (checarCredenciais(email,senha)) {
             this.email = novoEmail;
-        } else {
-            System.out.println(UsuarioConts.credenciaisInvalidas);
         }
     }
 
