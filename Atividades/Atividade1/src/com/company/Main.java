@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
         Scanner userInput = new Scanner(System.in);
         int escolhaMenuInicial;
         int escolhaMenuUsuario;
@@ -27,11 +26,13 @@ public class Main {
         String email,senha,nome;
         double saldoInicial;
         do {
+            //chama a função menu inicial (opções para o usuario)
             menuInicial();
             escolhaMenuInicial = userInput.nextInt();
             userInput.nextLine();
 
             switch (escolhaMenuInicial) {
+                //1 - fazer login
                 case 1 -> {
                     dadosTemps = menuLogin(userInput);
                     email = dadosTemps[0];
@@ -45,11 +46,13 @@ public class Main {
                             userInput.nextLine();
 
                             switch (escolhaMenuUsuario) {
+                                //1:1 - mostrar dados
                                 case 1:
                                     printarDadosConta(contaTemp);
                                     System.out.print("Precione enter para voltar:");
                                     userInput.nextLine();
                                     break;
+                                    //1:2 - transferencia
                                 case 2:
                                     menuDeTransferencia(contas, contaTemp, userInput);
                                     if (contas.size() > 1) {
@@ -69,7 +72,7 @@ public class Main {
                                         }
                                     }
                                     break;
-
+                                    //1:3 - trocar dados
                                 case 3:
                                     do {
                                         menuTrocarDados();
@@ -77,6 +80,7 @@ public class Main {
                                         userInput.nextLine();
 
                                         switch (escolhaMenuTrocaDeDados) {
+                                            //1:3:1 - mudar email
                                             case 1:
                                                 System.out.println("Qual o Novo Email?");
                                                 dadoAMudarTemp = userInput.nextLine();
@@ -87,7 +91,7 @@ public class Main {
                                                 System.out.print("Precione enter para voltar:");
                                                 userInput.nextLine();
                                                 break;
-
+                                            //1:3:2 - mudar senha
                                             case 2:
                                                 System.out.println("Qual o Novo Senha?");
                                                 dadoAMudarTemp = userInput.nextLine();
@@ -98,7 +102,7 @@ public class Main {
                                                 System.out.print("Precione enter para voltar:");
                                                 userInput.nextLine();
                                                 break;
-
+                                            //1:3:3 - mudar nome
                                             case 3:
                                                 System.out.println("Qual o Novo Nome?");
                                                 dadoAMudarTemp = userInput.nextLine();
@@ -109,7 +113,7 @@ public class Main {
                                                 System.out.print("Precione enter para voltar:");
                                                 userInput.nextLine();
                                                 break;
-
+                                                //1:3:4 - voltar
                                             case 4:
                                                 System.out.println("Voltando Você!!!");
                                                 break;
@@ -121,6 +125,7 @@ public class Main {
                                     } while (escolhaMenuTrocaDeDados != 4);
 
                                     break;
+                                //1:4 - voltar
                                 case 4:
                                     System.out.println("Voltando Você!!!");
                                     break;
@@ -132,6 +137,7 @@ public class Main {
                         } while (escolhaMenuUsuario != 4);
                     }
                 }
+                //2 - cadastrar
                 case 2 -> {
                     dadosTemps = menuCadastrar(userInput);
                     email = dadosTemps[0];
@@ -144,12 +150,15 @@ public class Main {
                     userInput.nextLine();
                     break;
                 }
+                //3 - acesso adm
                 case 3 -> {
+
                     menuAdmin(contas);
                     System.out.print("Precione enter para voltar:");
                     userInput.nextLine();
                     break;
                 }
+                //4 - saida
                 case 4 -> {
                     System.out.println("Volte sempre!!!");
                     break;
