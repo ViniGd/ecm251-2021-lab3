@@ -1,3 +1,6 @@
+//Fernando Padilha RA:
+//Vinicius Godoy RA: 19.00102-9
+
 package com.company;
 
 import conta.Conta;
@@ -189,7 +192,7 @@ public class Main {
         }
         return null;
     }
-
+    //Menu inicial
     private static void menuInicial() {
         System.out.println(
                 "============\n" +
@@ -200,7 +203,7 @@ public class Main {
                 "4 - Sair"
         );
     }
-
+    //Login
     private static String[] menuLogin(Scanner userInput) {
         System.out.println(
                 "============\n" +
@@ -215,7 +218,7 @@ public class Main {
 
         return new String[]{email, senha};
     }
-
+    //menu usuario
     private static void menuUsuario(Conta conta) {
         System.out.println(
                 "============\n" +
@@ -226,7 +229,7 @@ public class Main {
                 "4 - Voltar Ao Menu Anterior"
         );
     }
-
+    //dados da conta
     private static void printarDadosConta(Conta conta) {
         System.out.println(
                 "============\n" +
@@ -236,7 +239,7 @@ public class Main {
                 "Saldo: " + conta.getSaldo()
         );
     }
-
+    //transferencia
     private static void menuDeTransferencia(List<Conta> contas,Conta contaAPesquisar,Scanner userInput) {
         System.out.println(
                 "============\n" +
@@ -255,7 +258,7 @@ public class Main {
             userInput.nextLine();
         }
     }
-
+    //trocar dados
     private static void menuTrocarDados() {
         System.out.println(
                 "============\n" +
@@ -266,7 +269,7 @@ public class Main {
                 "4 - Voltar Ao Menu Anterior"
         );
     }
-
+    //cadastro
     private static String[] menuCadastrar(Scanner userInput) {
         System.out.println(
                 "============\n" +
@@ -290,7 +293,7 @@ public class Main {
 
         return new String[]{email, senha, nome, saldo};
     }
-
+    //menu adm
     private static void menuAdmin(List<Conta> contas) {
         System.out.println(
                 "============\n" +

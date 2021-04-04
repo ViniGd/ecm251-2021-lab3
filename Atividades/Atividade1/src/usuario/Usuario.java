@@ -1,5 +1,6 @@
 package usuario;
-
+//Fernando Padilha RA:
+//Vinicius Godoy RA: 19.00102-9
 public class Usuario {
     String nome;
     String senha;
